@@ -1,10 +1,10 @@
-*
-!AdderSub.vhd
-!FA.vhd
-!logic.vhd
-!mux.vhd
-!shifter.vhd
-!top.vhd
-!aux_package.vhd
-!README.md
-!.gitignore
+# *
+# !AdderSub.vhd
+# !FA.vhd
+# !logic.vhd
+# !mux.vhd
+# !shifter.vhd
+# !top.vhd
+# !aux_package.vhd
+# !README.md
+# !.gitignore

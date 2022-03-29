@@ -1,0 +1,45 @@
+{{C:/Users/eilon.toledano/Desktop/study/CPU/labs/lab1/VHDL - Ripple Adder (without Package)/tb.vhd}} {1 {vcom -work work -2002 -explicit {C:/Users/eilon.toledano/Desktop/study/CPU/labs/lab1/VHDL - Ripple Adder (without Package)/tb.vhd}
+Model Technology ModelSim ALTERA vcom 10.1b Compiler 2012.04 Apr 27 2012
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Compiling entity tb
+-- Compiling architecture rtb of tb
+
+} {} {}} C:/Users/eilon.toledano/Desktop/study/CPU/labs/lab1/CPU_1/tb_adderSub.vhd {1 {vcom -work work -2002 -explicit C:/Users/eilon.toledano/Desktop/study/CPU/labs/lab1/CPU_1/tb_adderSub.vhd
+Model Technology ModelSim ALTERA vcom 10.1b Compiler 2012.04 Apr 27 2012
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Compiling entity tb
+-- Compiling architecture rtb of tb
+
+} {} {}} C:/Users/eilon.toledano/Desktop/study/CPU/labs/lab1/CPU_1/FA.vhd {1 {vcom -work work -2002 -explicit C:/Users/eilon.toledano/Desktop/study/CPU/labs/lab1/CPU_1/FA.vhd
+Model Technology ModelSim ALTERA vcom 10.1b Compiler 2012.04 Apr 27 2012
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity FA
+-- Compiling architecture dataflow of FA
+
+} {} {}} {{C:/Users/eilon.toledano/Desktop/study/CPU/labs/lab1/VHDL - Ripple Adder (without Package)/FA.vhd}} {1 {vcom -work work -2002 -explicit {C:/Users/eilon.toledano/Desktop/study/CPU/labs/lab1/VHDL - Ripple Adder (without Package)/FA.vhd}
+Model Technology ModelSim ALTERA vcom 10.1b Compiler 2012.04 Apr 27 2012
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity FA
+-- Compiling architecture dataflow of FA
+
+} {} {}} {{C:/Users/eilon.toledano/Desktop/study/CPU/labs/lab1/VHDL - Ripple Adder (without Package)/Adder.vhd}} {1 {vcom -work work -2002 -explicit {C:/Users/eilon.toledano/Desktop/study/CPU/labs/lab1/VHDL - Ripple Adder (without Package)/Adder.vhd}
+Model Technology ModelSim ALTERA vcom 10.1b Compiler 2012.04 Apr 27 2012
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity Adder
+-- Compiling architecture dfl of Adder
+
+} {} {}}

@@ -1,0 +1,74 @@
+C:/Users/eilon.toledano/Desktop/study/CPU/labs/lab1/CPU_1/adderSub.vhd {0 {vcom -work work -2002 -explicit C:/Users/eilon.toledano/Desktop/study/CPU/labs/lab1/CPU_1/adderSub.vhd
+Model Technology ModelSim ALTERA vcom 10.1b Compiler 2012.04 Apr 27 2012
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity AdderSub
+-- Compiling architecture AdderSub_a of AdderSub
+** Error: C:/Users/eilon.toledano/Desktop/study/CPU/labs/lab1/CPU_1/adderSub.vhd(24): (vcom-1436) Actual expression (infix expression) of formal "yi" is not globally static.
+
+** Error: C:/Users/eilon.toledano/Desktop/study/CPU/labs/lab1/CPU_1/adderSub.vhd(33): (vcom-1436) Actual expression (infix expression) of formal "yi" is not globally static.
+
+** Error: C:/Users/eilon.toledano/Desktop/study/CPU/labs/lab1/CPU_1/adderSub.vhd(42): VHDL Compiler exiting
+
+} {8.0 9.0 10.0 11.0 12.0 13.0} {}} {{C:/Users/eilon.toledano/Desktop/study/CPU/labs/lab1/VHDL - FA/tb/tb_ver1.vhd}} {1 {vcom -work work -2002 -explicit {C:/Users/eilon.toledano/Desktop/study/CPU/labs/lab1/VHDL - FA/tb/tb_ver1.vhd}
+Model Technology ModelSim ALTERA vcom 10.1b Compiler 2012.04 Apr 27 2012
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Compiling entity tb_ver1
+-- Compiling architecture rtl of tb_ver1
+
+} {} {}} C:/Users/eilon.toledano/Desktop/study/CPU/labs/lab1/CPU_1/tb_adderSub.vhd {0 {vcom -work work -2002 -explicit C:/Users/eilon.toledano/Desktop/study/CPU/labs/lab1/CPU_1/tb_adderSub.vhd
+Model Technology ModelSim ALTERA vcom 10.1b Compiler 2012.04 Apr 27 2012
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+** Error: (vcom-11) Could not find work.sample_package.
+
+** Error: C:/Users/eilon.toledano/Desktop/study/CPU/labs/lab1/CPU_1/tb_adderSub.vhd(5): (vcom-1195) Cannot find expanded name "work.sample_package".
+
+** Error: C:/Users/eilon.toledano/Desktop/study/CPU/labs/lab1/CPU_1/tb_adderSub.vhd(5): Unknown expanded name.
+** Error: C:/Users/eilon.toledano/Desktop/study/CPU/labs/lab1/CPU_1/tb_adderSub.vhd(7): VHDL Compiler exiting
+
+} {8.0 9.0 10.0 11.0 12.0 14.0} {}} {{C:/Users/eilon.toledano/Desktop/study/CPU/labs/lab1/VHDL - FA/tb/tb_ver2.vhd}} {1 {vcom -work work -2002 -explicit {C:/Users/eilon.toledano/Desktop/study/CPU/labs/lab1/VHDL - FA/tb/tb_ver2.vhd}
+Model Technology ModelSim ALTERA vcom 10.1b Compiler 2012.04 Apr 27 2012
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Compiling entity tb_ver2
+-- Compiling architecture rtl of tb_ver2
+
+} {} {}} C:/Users/eilon.toledano/Desktop/study/CPU/labs/lab1/CPU_1/FA.vhd {1 {vcom -work work -2002 -explicit C:/Users/eilon.toledano/Desktop/study/CPU/labs/lab1/CPU_1/FA.vhd
+Model Technology ModelSim ALTERA vcom 10.1b Compiler 2012.04 Apr 27 2012
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity FA
+-- Compiling architecture dataflow of FA
+
+} {} {}} {{C:/Users/eilon.toledano/Desktop/study/CPU/labs/lab1/VHDL - FA/tb/tb_ver3.vhd}} {1 {vcom -work work -2002 -explicit {C:/Users/eilon.toledano/Desktop/study/CPU/labs/lab1/VHDL - FA/tb/tb_ver3.vhd}
+Model Technology ModelSim ALTERA vcom 10.1b Compiler 2012.04 Apr 27 2012
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Compiling entity tb_ver3
+-- Compiling architecture rtl of tb_ver3
+
+} {} {}} {{C:/Users/eilon.toledano/Desktop/study/CPU/labs/lab1/VHDL - FA/FA.vhd}} {1 {vcom -work work -2002 -explicit {C:/Users/eilon.toledano/Desktop/study/CPU/labs/lab1/VHDL - FA/FA.vhd}
+Model Technology ModelSim ALTERA vcom 10.1b Compiler 2012.04 Apr 27 2012
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity FA
+-- Compiling architecture dataflow of FA
+
+} {} {}}
