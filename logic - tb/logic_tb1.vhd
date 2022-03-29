@@ -5,41 +5,52 @@ USE ieee.std_logic_arith.all;
 USE ieee.std_logic_unsigned.all;
 
 ENTITY logic_tb1 IS
+    constant n : integer := 3;
 END logic_tb1;
 
 ARCHITECTURE logic_tb1_arch OF logic_tb1 IS
 
 COMPONENT logic
-    PORT (x, y : IN std_logic;
-	           sel: IN std_logic_vector (2 DOWNTO 0); 
-			         s: OUT std_logic
+    GENERIC (n : INTEGER := 3);
+    PORT (x, y : IN std_logic_vector (n-1 DOWNTO 0);
+	        sel: IN std_logic_vector (2 DOWNTO 0); 
+			s: OUT std_logic_vector (n-1 DOWNTO 0)
 			         );
 END COMPONENT;
 
-signal x, y, s : std_logic; 
-signal sel : std_logic_vector (2 DOWNTO 0);
+SIGNAL x, y, s : std_logic_vector (n-1 DOWNTO 0); 
+SIGNAL sel : std_logic_vector (2 DOWNTO 0);
 
 begin
-      tester : logic port map(
-                      x=>x, y=>y, sel=>sel, s=>s);
-                      
-      testbench : process
-      begin
-         --------- start of stimulus section - ver1 ------------------
-        sel <= "000", "001" after 100 ps, "010" after 200 ps, "011" after 300 ps, "100" after 400 ps, "101" after 500 ps,
-               "000" after 600 ps, "001" after 700 ps, "010" after 800 ps, "011" after 900 ps, "100" after 1000 ps, "101" after 1100 ps,
-               "000" after 1200 ps, "001" after 1300 ps, "010" after 1400 ps, "011" after 1500 ps, "100" after 1600 ps, "101" after 1700 ps,
-               "000" after 1800 ps, "001" after 1900 ps, "010" after 2000 ps, "011" after 2100 ps, "100" after 2200 ps, "101" after 2300 ps;
-               
-        y <= '0', '1' after 600 ps, '0' after 1200 ps, '1' after 1800 ps;
-        
-        x <= '0', '1' after 1200 ps;
-        
-        ---------- end of stimulus section----------------------------
+    tester : logic  generic map (n) port map(x, y, sel, s);
+                     
+    --------- start of stimulus section  ------------------               
+    testbench : process
+    begin
+        x <= (others => '0');
+		y <= (others => '0');
+        sel <= (others => '0');
+
+        for i in 0 to 5 loop             -- Iterating over all possible operations, sel := { 000, 001, 010, 011, 100, 101}
+            for i in 0 to 7 loop         -- Iterating over x values := {000,001, ..., 111} for each operation 
+                wait for 100 ns;
+                
+                for i in 0 to 7 loop     -- Iterating over y values := {000,001, ..., 111} for each x value
+                    wait for 50 ns;
+                    y <= y+1;
+                end loop;
+                
+                y <= (others => '0');    -- nullifying y in order to test with next x value
+                x <= x+1;                
+                
+            end loop;
+            x <= (others => '0');        -- nullifying x in order to test next operation
+            sel <= sel+1;
+        end loop;
+    end process testbench;            
+        ---------- end of stimulus section  ---------------------------
           
-            wait;
-    end process testbench;
-    
+
 end logic_tb1_arch;
     
     
