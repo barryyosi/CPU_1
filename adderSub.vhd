@@ -44,3 +44,52 @@ BEGIN
 
 END AdderSub_a;
 
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+--------------------------------------------------------------
+ENTITY AdderSub_switch IS
+	GENERIC (n : INTEGER := 4);
+	PORT (x, y : IN STD_LOGIC_VECTOR (n-1 DOWNTO 0);
+	      sel : IN STD_LOGIC_VECTOR (2 DOWNTO 0);
+			s : OUT STD_LOGIC_VECTOR (n-1 DOWNTO 0);
+			cout : OUT std_logic);
+END AdderSub_switch;
+
+--------------------------------------
+ARCHITECTURE logicUnitArch OF AdderSub_switch IS
+	component AdderSub is
+		PORT (  sub: 	IN STD_LOGIC;
+				x,y: 	IN STD_LOGIC_VECTOR (n-1 DOWNTO 0);
+				s: 		OUT STD_LOGIC_VECTOR(n-1 downto 0);
+				cout: 	OUT STD_LOGIC);
+	end component;
+
+	SIGNAL AdderSub_out, AdderSub_x : STD_LOGIC_VECTOR(n-1 downto 0);
+	SIGNAL AdderSub_sub : STD_LOGIC;
+
+BEGIN
+	AdderSub_sub <= sel(0) or sel(1);
+
+	WITH sel SELECT
+	AdderSub_x <= 	x when "000",
+					x when "001",
+					"0" when "010",
+					"0" when others;
+
+	pm: AdderSub port map(
+		sub => AdderSub_sub,
+		y => y,
+		x => AdderSub_x,
+		s => AdderSub_out,
+		cout => cout
+	);
+
+	WITH sel SELECT
+	s <= 	AdderSub_out when "000",
+			AdderSub_out when "001",
+			AdderSub_out when "010",
+			x when others;
+
+
+
+END logicUnitArch;
