@@ -1,16 +1,6 @@
 LIBRARY ieee;
 USE ieee.std_logic_1164.all;
 --------------------------------------
-ARCHITECTURE logicUnitArch OF logic IS
-BEGIN
-	WITH sel SELECT
-	   s <= not(y) when "000",
-	       x or y when "001",
-	       x and y when "010",
-	       x xor y when "011",
-	       x norLIBRARY ieee;
-USE ieee.std_logic_1164.all;
---------------------------------------
 ENTITY logic IS
 	GENERIC (n : INTEGER := 4);
 	PORT (x, y : IN std_logic_vector (n-1 DOWNTO 0);
@@ -34,9 +24,5 @@ BEGIN
 		   
 	       		end generate;
 END logicUnitArch;
- y when "100",
-	       x nand y when "101",
-	       x when OTHERS;
-	       
-END logicUnitArch;
+
 
