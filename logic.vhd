@@ -1,13 +1,6 @@
 LIBRARY ieee;
 USE ieee.std_logic_1164.all;
 --------------------------------------
-ENTITY logic IS
-	PORT (x, y : IN std_logic;
-	      sel : IN std_logic_vector (2 DOWNTO 0); 
-			s : OUT std_logic 
-			);
-END logic;
---------------------------------------
 ARCHITECTURE logicUnitArch OF logic IS
 BEGIN
 	WITH sel SELECT
