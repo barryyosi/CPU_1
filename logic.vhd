@@ -20,7 +20,7 @@ BEGIN
 						x(i) xor y(i) when "011",
 						x(i) nor y(i) when "100",
 						x(i) nand y(i) when "101",
-						x(i) when OTHERS;
+						'0' when OTHERS;
 		   
 	       		end generate;
 END logicUnitArch;
