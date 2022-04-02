@@ -77,8 +77,7 @@ BEGIN
 	WITH sel SELECT
 	AdderSub_x <= 	x when "00",
 					x when "01",
-					zeros when "10",
-					high_z when others;
+					zeros when others; -- include 10
 
 	cout <=	'Z' when sel = "11" else AdderSub_cout;
 
