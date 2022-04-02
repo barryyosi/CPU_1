@@ -41,4 +41,6 @@ BEGIN
                         res(n-1) <= '0';
                
                 end generate;
+		
+	end if;
 END shifterArch;
