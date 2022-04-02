@@ -15,13 +15,15 @@ END shifter;
 ARCHITECTURE shifterArch OF shifter IS
 
         signal k : integer := 0;
+          
+
+BEGIN
         for l in 0 to n-1 generate
                 if x(i) = '1' then
                         k <= k + l ** 2;
-        end generate;       
+        end generate;     
 
-BEGIN
-	if dir = '0' then             -- shift left
+        if dir = '0' then             -- shift left
                 for j in 0 to k-1 generate
                         cout <= y(n-1); 
                         for i in n-1 downto 1 generate
