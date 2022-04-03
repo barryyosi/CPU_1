@@ -33,10 +33,10 @@ ARCHITECTURE struct OF top IS
     end component;
 
     component shifter is
-        PORT (x, y : IN std_logic_vector (n-1 DOWNTO 0);
-                dir : IN std_logic; -- change to ALUFN
-                cout : OUT std_logic; -- change to s
-                    res : OUT std_logic_vector (n-1 DOWNTO 0)
+        PORT (  x, y : IN std_logic_vector (n-1 DOWNTO 0);
+                ALUFN : IN std_logic_vector(1 downto 0);
+                cout : OUT std_logic;
+                res : OUT std_logic_vector (n-1 DOWNTO 0)
                 );
     end component;
 
