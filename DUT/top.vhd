@@ -45,7 +45,8 @@ ARCHITECTURE struct OF top IS
     SIGNAL AdderSub_x,  AdderSub_y,  AdderSub_res  : STD_LOGIC_VECTOR(n-1 downto 0);
     SIGNAL logic_x,     logic_y,     logic_res     : STD_LOGIC_VECTOR(n-1 downto 0);
     SIGNAL shifter_x,   shifter_y,   shifter_res   : STD_LOGIC_VECTOR(n-1 downto 0);
-    SIGNAL AdderSub_cout,   logic_cout,   shifter_cout   : STD_LOGIC;
+    SIGNAL AdderSub_cout,   shifter_cout           : STD_LOGIC;
+    SIGNAL type_logic, type_shifter, type_addersub: STD_LOGIC;
 
     CONSTANT zero_vector : STD_LOGIC_VECTOR(n-1 downto 0) := (others => '0');
 
@@ -72,30 +73,21 @@ ARCHITECTURE struct OF top IS
         cout => shifter_cout
     );
 
-	WITH ALUFN(4 downto 3) SELECT
-	AdderSub_x <= 	x when "01",
-                    UNAFFECTED when others;
 
-	WITH ALUFN(4 downto 3) SELECT
-	logic_x  <= 	x when "11",
-                    UNAFFECTED when others;
-
-	WITH ALUFN(4 downto 3) SELECT
-	shifter_x <= 	x when "10",
-                    UNAFFECTED when others;
+	type_addersub   <= 	'1' when ALUFN(4 downto 3)="01" and ( ALUFN(2 downto 0)="000" or ALUFN(2 downto 0)="001" or ALUFN(2 downto 0)="010" ) else '0';
+	type_shifter      <= 	'1' when ALUFN(4 downto 3)="10" and ( ALUFN(2 downto 0)="000" or ALUFN(2 downto 0)="001") else '0';
+	type_logic      <= 	'1' when ALUFN(4 downto 3)="11" and ( ALUFN(2 downto 0)="000" or ALUFN(2 downto 0)="001" or ALUFN(2 downto 0)="010" or ALUFN(2 downto 0)="011" or ALUFN(2 downto 0)="100" or ALUFN(2 downto 0)="101" ) else '0';
 
 
-	WITH ALUFN(4 downto 3) SELECT
-	AdderSub_y <= 	y when "01",
-                    UNAFFECTED when others;
+	AdderSub_x <= x         when type_addersub='1' else UNAFFECTED;
+	AdderSub_y <= y         when type_addersub='1' else UNAFFECTED;
 
-	WITH ALUFN(4 downto 3) SELECT
-	logic_y  <= 	y when "11",
-                    UNAFFECTED when others;
+	shifter_x <= x         when type_shifter='1' else UNAFFECTED;
+	shifter_y <= y         when type_shifter='1' else UNAFFECTED;
 
-	WITH ALUFN(4 downto 3) SELECT
-	shifter_y <= 	y when "10",
-                    UNAFFECTED when others;
+	logic_x <= x         when type_logic='1' else UNAFFECTED;
+	logic_y <= y         when type_logic='1' else UNAFFECTED;
+
 
 
 	WITH ALUFN(4 downto 3) SELECT
@@ -104,11 +96,10 @@ ARCHITECTURE struct OF top IS
                     shifter_res when "10",
                     UNAFFECTED when others ;
 
-
 	WITH ALUFN(4 downto 3) SELECT
         Cflag <=    AdderSub_cout when "01",
-                    '0' when "11",
                     shifter_cout when "10",
+                    '0' when "11",
                     UNAFFECTED when others ;
 
     Nflag <= ALUFN(n-1);
