@@ -12,21 +12,37 @@ ENTITY shifter IS
 END shifter;
 --------------------------------------
 ARCHITECTURE shifterArch OF shifter IS
-
+  
+        constant log_n: integer := integer(log2(real(n)));
+        type vectorArr is array (0 to log_n - 1) of std_logic_vector ( n - 1 downto 0);
         signal zeros : std_logic_vector (n-1 DOWNTO 0 ) := (others => '0');
-        constant log_n: integer := integer(ceil(log2(real(n))));
-
-BEGIN
-         
-     loop0: for i in 0 to log_n - 1 generate
-                        cout <= y( n - 2**i )  when (x(i)= '1' and ALUFN ="00") else
-                                     y( 2**i - 1) when (x(i)= '1' and ALUFN = "01") else
-                                     UNAFFECTED; 
-                                      
-                        res <= y( n - 2**i - 1 downto 0) & zeros( 2**i - 1 downto 0  ) when (x(i)= '1' and ALUFN ="00") else
-                                    zeros( 2**i - 1 downto 0 ) & y( n - 1 downto 2**i)  when (x(i)= '1' and ALUFN = "01") else
-                                    UNAFFECTED;   
-                
-                end generate;
+        signal resMat: vectorArr;     -- log(n)Xn mat
+        signal carryVec : std_logic_vector (0 to log_n - 1);
         
+BEGIN
+                resMat(0) <= y(n - 2 downto 0) & zeros( 0) when (x(0)= '1' and ALUFN ="00") else
+                                                   
+                                    zeros(0) & y(n - 1 downto 1)  when (x(0)= '1' and ALUFN = "01") else
+                                            
+                                    y;
+                                    
+                carryVec(0) <= y( n - 1 )  when (x(0)= '1' and ALUFN ="00") else
+                                     y(0) when (x(0)= '1' and ALUFN = "01") else
+                                     '0';
+     loop0: for i in 1 to log_n - 1 generate
+                        carryVec(i) <= y( n - 2**i )  when (x(i)= '1' and ALUFN ="00") else
+                                     y( 2**i - 1) when (x(i)= '1' and ALUFN = "01") else
+                                      carryVec(i-1);
+                                
+                        resMat(i) <= resMat(i-1)(n - 2**i - 1 downto 0) & zeros( 2**i - 1 downto 0  ) when (x(i)= '1' and ALUFN ="00") else
+                                                   
+                                            zeros( 2**i - 1 downto 0 ) & resMat(i-1)( n - 1 downto 2**i)  when (x(i)= '1' and ALUFN = "01") else
+                                            
+                                            resMat(i-1);
+                             
+                end generate;
+                
+                res <= resMat(log_n - 1);
+                cout <= carryVec(log_n - 1);
+                
 END shifterArch;

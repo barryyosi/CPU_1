@@ -5,13 +5,13 @@ USE ieee.std_logic_arith.all;
 USE ieee.std_logic_unsigned.all;
 
 ENTITY tb_shifter IS
-    constant n : integer := 3;
+    constant n : integer := 4;
 END tb_shifter;
 
 ARCHITECTURE tb_shifter_arch OF tb_shifter IS
 
 COMPONENT shifter
-    GENERIC (n : INTEGER := 3);
+    GENERIC (n : INTEGER := 4);
     PORT (x, y : IN std_logic_vector (n-1 DOWNTO 0);
 	        ALUFN : IN std_logic_vector (1 DOWNTO 0);
 	        cout : OUT std_logic;
@@ -31,11 +31,11 @@ begin
     testbench : process
     begin
         x <= (others => '0');
-		y <= (others => '0');
+		 y <= (others => '0');
         
         
         ALUFN <= "00";                   -- left shift testing
-        for i in 0 to 10 loop            -- Iterating over x values from 0 to 10
+        for i in 0 to 5 loop            -- Iterating over x values from 0 to 10
             for i in 0 to 2**5 loop      -- Iterating over y values for each number of shifts
                 wait for 10 ns;
                     y <= y + 1;
@@ -47,7 +47,7 @@ begin
 		y <= (others => '0');
 
         ALUFN <= "01";                   -- right shift testing
-        for i in 0 to 10 loop            -- Iterating over x values from 0 to 10
+        for i in 0 to 5 loop            -- Iterating over x values from 0 to 10
             for i in 0 to 2**5 loop      -- Iterating over y values for each number of shifts
                 wait for 10 ns;
                     y <= y + 1;
@@ -64,4 +64,3 @@ end tb_shifter_arch;
       
      
 	
-
