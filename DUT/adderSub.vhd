@@ -50,7 +50,7 @@ USE ieee.std_logic_1164.all;
 ENTITY AdderSub_switch IS
 	GENERIC (n : INTEGER := 8);
 	PORT (x, y : IN STD_LOGIC_VECTOR (n-1 DOWNTO 0);
-	      sel : IN STD_LOGIC_VECTOR (1 DOWNTO 0);
+	      ALUFN : IN STD_LOGIC_VECTOR (1 DOWNTO 0);
 			s : OUT STD_LOGIC_VECTOR (n-1 DOWNTO 0);
 			cout : OUT std_logic);
 END AdderSub_switch;
@@ -70,17 +70,17 @@ ARCHITECTURE AdderSub_switch_a OF AdderSub_switch IS
 
 BEGIN
 
-	AdderSub_sub <= sel(0) or sel(1);
+	AdderSub_sub <= ALUFN(0) or ALUFN(1);
 	high_z <= (others => 'Z');
 	zeros <= (others => '0');
 
-	WITH sel SELECT
+	WITH ALUFN ALUFNECT
 	AdderSub_x <= 	x when "00",
 					x when "01",
 					zeros when others;
 
-	s <=	AdderSub_out  when sel /= "11" and x /= high_z else high_z;
-	cout <=	AdderSub_cout when sel /= "11" and x /= high_z else 'Z';
+	s <=	AdderSub_out  when ALUFN /= "11" and x /= high_z else high_z;
+	cout <=	AdderSub_cout when ALUFN /= "11" and x /= high_z else 'Z';
 
 	pm: AdderSub port map(
 		sub => AdderSub_sub,
