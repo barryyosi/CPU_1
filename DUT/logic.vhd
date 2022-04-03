@@ -5,7 +5,7 @@ ENTITY logic IS
 	GENERIC (n : INTEGER := 4);
 	PORT (x, y : IN std_logic_vector (n-1 DOWNTO 0);
 	      ALUFN : IN std_logic_vector (2 DOWNTO 0);
-			s : OUT std_logic_vector (n-1 DOWNTO 0)
+			res : OUT std_logic_vector (n-1 DOWNTO 0)
 			);
 END logic;
 --------------------------------------
@@ -14,7 +14,7 @@ BEGIN
 
 	   loop1: for i in 0 to n-1 generate
 	   				WITH ALUFN SELECT
-					s(i) <=  not(y(i)) when "000",
+					res(i) <=  not(y(i)) when "000",
 						x(i) or y(i) when "001",
 						x(i) and y(i) when "010",
 						x(i) xor y(i) when "011",

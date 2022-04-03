@@ -20,7 +20,7 @@ ARCHITECTURE struct OF top IS
     component AdderSub_switch is
         PORT (  x, y : IN STD_LOGIC_VECTOR (n-1 DOWNTO 0);
                 ALUFN : IN STD_LOGIC_VECTOR (1 DOWNTO 0);
-                s : OUT STD_LOGIC_VECTOR (n-1 DOWNTO 0);
+                res : OUT STD_LOGIC_VECTOR (n-1 DOWNTO 0);
                 cout : OUT std_logic);
     end component;
 
@@ -28,7 +28,7 @@ ARCHITECTURE struct OF top IS
     component logic is
         PORT (  x, y : IN std_logic_vector (n-1 DOWNTO 0);
                 ALUFN : IN std_logic_vector (2 DOWNTO 0);
-                s : OUT std_logic_vector (n-1 DOWNTO 0)
+                res : OUT std_logic_vector (n-1 DOWNTO 0)
                 );
     end component;
 
@@ -36,15 +36,15 @@ ARCHITECTURE struct OF top IS
         PORT (x, y : IN std_logic_vector (n-1 DOWNTO 0);
                 dir : IN std_logic; -- change to ALUFN
                 cout : OUT std_logic; -- change to s
-                    S : OUT std_logic_vector (n-1 DOWNTO 0)
+                    res : OUT std_logic_vector (n-1 DOWNTO 0)
                 );
     end component;
 
 
     SIGNAL ALUFN, zeros               : STD_LOGIC_VECTOR(n-1 downto 0);
-    SIGNAL AdderSub_x,  AdderSub_y,  AdderSub_s  : STD_LOGIC_VECTOR(n-1 downto 0);
-    SIGNAL logic_x,     logic_y,     logic_s     : STD_LOGIC_VECTOR(n-1 downto 0);
-    SIGNAL shifter_x,   shifter_y,   shifter_s   : STD_LOGIC_VECTOR(n-1 downto 0);
+    SIGNAL AdderSub_x,  AdderSub_y,  AdderSub_res  : STD_LOGIC_VECTOR(n-1 downto 0);
+    SIGNAL logic_x,     logic_y,     logic_res     : STD_LOGIC_VECTOR(n-1 downto 0);
+    SIGNAL shifter_x,   shifter_y,   shifter_res   : STD_LOGIC_VECTOR(n-1 downto 0);
     SIGNAL AdderSub_cout,   logic_cout,   shifter_cout   : STD_LOGIC;
 
     CONSTANT zero_vector : STD_LOGIC_VECTOR(n-1 downto 0) := (others => '0');
@@ -55,20 +55,20 @@ ARCHITECTURE struct OF top IS
         ALUFN => ALUFN(1 downto 0),
         y => AdderSub_y,
         x => AdderSub_x,
-        s => AdderSub_s,
+        res => AdderSub_s,
         cout => AdderSub_cout
     );
     logic_pm: logic port map(
         ALUFN => ALUFN(2 downto 0),
         y => logic_y,
         x => logic_x,
-        s => logic_s
+        res => logic_s
     );
     shifter_pm: shifter port map(
         ALUFN => ALUFN(1 downto 0),
         y => shifter_y,
         x => shifter_x,
-        s => shifter_s,
+        res => shifter_s,
         cout => shifter_cout
     );
 
@@ -99,17 +99,17 @@ ARCHITECTURE struct OF top IS
 
 
 	WITH ALUFN(4 downto 3) SELECT
-        s <= AdderSub_s when "01",
-        s <= logic_s when "11",
-        s <= shifter_s when "10",
-        s <= UNAFFECTED;
+        ALUout <=   AdderSub_s when "01",
+                    logic_s when "11",
+                    shifter_s when "10",
+                    UNAFFECTED;
 
 
 	WITH ALUFN(4 downto 3) SELECT
-        Cflag <= AdderSub_cout when "01",
-        Cflag <= '0' when "11",
-        Cflag <= shifter_cout when "10",
-        Cflag <= UNAFFECTED;
+        Cflag <=    AdderSub_cout when "01",
+                    '0' when "11",
+                    shifter_cout when "10",
+                    UNAFFECTED;
 
     Nflag <= s(n-1);
     Zflag <= '1' when s=zero_vector else '0'
