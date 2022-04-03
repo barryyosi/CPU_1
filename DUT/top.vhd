@@ -111,13 +111,8 @@ ARCHITECTURE struct OF top IS
                     shifter_cout when "10",
                     UNAFFECTED when others ;
 
-<<<<<<< HEAD
     Nflag <= ALUFN(n-1);
     Zflag <= '1' when ALUFN=zero_vector else '0';
-=======
-    Nflag <= res(n-1);
-    Zflag <= '1' when s=zero_vector else '0'
->>>>>>> a5f51673aee4ffbc96a894778e6d5aefc0d09d2e
 
 
 END struct;
