@@ -25,7 +25,7 @@ SIGNAL res  : std_logic_vector (n-1 DOWNTO 0);
 SIGNAL cout : std_logic;
 
 begin
-    tester : logic generic map (n) port map(x, y, ALUFN, cout, res);
+    tester : shifter generic map (n) port map(x, y, ALUFN, cout, res);
                      
     --------- start of stimulus section  ------------------               
     testbench : process
@@ -34,10 +34,10 @@ begin
 		y <= (others => '0');
         
         
-        ALUFN <= '00';                   -- left shift testing
+        ALUFN <= "00";                   -- left shift testing
         for i in 0 to 10 loop            -- Iterating over x values from 0 to 10
             for i in 0 to 2**5 loop      -- Iterating over y values for each number of shifts
-                wait for 100 ns;
+                wait for 10 ns;
                     y <= y + 1;
             end loop;
             x <= x + 1;
@@ -46,10 +46,10 @@ begin
         x <= (others => '0');
 		y <= (others => '0');
 
-        ALUFN <= '01';                   -- right shift testing
+        ALUFN <= "01";                   -- right shift testing
         for i in 0 to 10 loop            -- Iterating over x values from 0 to 10
             for i in 0 to 2**5 loop      -- Iterating over y values for each number of shifts
-                wait for 100 ns;
+                wait for 10 ns;
                     y <= y + 1;
             end loop;
             x <= x + 1;
@@ -64,3 +64,4 @@ end tb_shifter_arch;
       
      
 	
+
