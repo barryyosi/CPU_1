@@ -1,0 +1,15 @@
+/*
+!DUT/
+DUT/*
+!DUT/*.vhd
+!TB/
+TB/*
+!TB/tb_*.vhd
+!SIM/
+SIM/*
+!SIM/*.do
+
+
+!lab1.pdf
+!lab1.docx
+!.gitignore
