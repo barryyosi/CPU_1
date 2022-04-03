@@ -4,7 +4,7 @@ use ieee.std_logic_arith.all;
 use ieee.std_logic_unsigned.all;
 
 entity tb is
-	constant m : integer := 3;
+	constant m : integer := 8;
 end tb;
 
 architecture rtb of tb is

@@ -5,13 +5,13 @@ USE ieee.std_logic_arith.all;
 USE ieee.std_logic_unsigned.all;
 
 ENTITY logic_tb1 IS
-    constant n : integer := 3;
+    constant n : integer 8;
 END logic_tb1;
 
 ARCHITECTURE logic_tb1_arch OF logic_tb1 IS
 
 COMPONENT logic
-    GENERIC (n : INTEGER := 3);
+    GENERIC (n : INTEGER := 8);
     PORT (x, y : IN std_logic_vector (n-1 DOWNTO 0);
 	        ALUFN: IN std_logic_vector (2 DOWNTO 0);
 			s: OUT std_logic_vector (n-1 DOWNTO 0)

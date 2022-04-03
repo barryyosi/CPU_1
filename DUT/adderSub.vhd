@@ -2,7 +2,7 @@ LIBRARY ieee;
 USE ieee.std_logic_1164.all;
 -------------------------------------
 ENTITY AdderSub IS
-  GENERIC (n : INTEGER := 3);
+  GENERIC (n : INTEGER := 8);
   PORT (     sub: IN STD_LOGIC;
 			 x,y: IN STD_LOGIC_VECTOR (n-1 DOWNTO 0);
             cout: OUT STD_LOGIC;
