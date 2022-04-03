@@ -19,6 +19,7 @@ ARCHITECTURE shifterArch OF shifter IS
         signal resMat: vectorArr;     -- log(n)Xn mat
         signal carryVec : std_logic_vector (0 to log_n - 1);
         
+<<<<<<< HEAD
 BEGIN
                 resMat(0) <= y(n - 2 downto 0) & zeros( 0) when (x(0)= '1' and ALUFN ="00") else
                                                    
@@ -46,3 +47,6 @@ BEGIN
                 cout <= carryVec(log_n - 1);
                 
 END shifterArch;
+=======
+END shifterArch;
+>>>>>>> 66b74d8 (updates shifter 18:34)
