@@ -41,7 +41,7 @@ ARCHITECTURE struct OF top IS
     end component;
 
 
-    SIGNAL ALUFN, zeros               : STD_LOGIC_VECTOR(n-1 downto 0);
+    SIGNAL zeros               : STD_LOGIC_VECTOR(n-1 downto 0);
     SIGNAL AdderSub_x,  AdderSub_y,  AdderSub_res  : STD_LOGIC_VECTOR(n-1 downto 0);
     SIGNAL logic_x,     logic_y,     logic_res     : STD_LOGIC_VECTOR(n-1 downto 0);
     SIGNAL shifter_x,   shifter_y,   shifter_res   : STD_LOGIC_VECTOR(n-1 downto 0);
@@ -55,20 +55,20 @@ ARCHITECTURE struct OF top IS
         ALUFN => ALUFN(1 downto 0),
         y => AdderSub_y,
         x => AdderSub_x,
-        res => AdderSub_s,
+        res => AdderSub_res,
         cout => AdderSub_cout
     );
     logic_pm: logic port map(
         ALUFN => ALUFN(2 downto 0),
         y => logic_y,
         x => logic_x,
-        res => logic_s
+        res => logic_res
     );
     shifter_pm: shifter port map(
         ALUFN => ALUFN(1 downto 0),
         y => shifter_y,
         x => shifter_x,
-        res => shifter_s,
+        res => shifter_res,
         cout => shifter_cout
     );
 
@@ -99,19 +99,19 @@ ARCHITECTURE struct OF top IS
 
 
 	WITH ALUFN(4 downto 3) SELECT
-        ALUout <=   AdderSub_s when "01",
-                    logic_s when "11",
-                    shifter_s when "10",
-                    UNAFFECTED;
+        ALUout <=   AdderSub_res when "01",
+                    logic_res when "11",
+                    shifter_res when "10",
+                    UNAFFECTED when others ;
 
 
 	WITH ALUFN(4 downto 3) SELECT
         Cflag <=    AdderSub_cout when "01",
                     '0' when "11",
                     shifter_cout when "10",
-                    UNAFFECTED;
+                    UNAFFECTED when others ;
 
-    Nflag <= s(n-1);
+    Nflag <= res(n-1);
     Zflag <= '1' when s=zero_vector else '0'
 
 
