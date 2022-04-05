@@ -3,7 +3,7 @@ USE ieee.std_logic_1164.all;
 use IEEE.math_real.all;
 --------------------------------------
 ENTITY shifter IS
-	GENERIC (n : INTEGER := 4);
+	GENERIC (n : INTEGER := 8);
 	PORT (x, y : IN std_logic_vector (n-1 DOWNTO 0);
 	        ALUFN : IN std_logic_vector (1 DOWNTO 0);
 	        cout : OUT std_logic;

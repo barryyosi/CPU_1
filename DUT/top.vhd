@@ -10,7 +10,7 @@ ENTITY top IS
 		   m : integer := 4	); -- m=2^(k-1)
   PORT (  Y,X: IN STD_LOGIC_VECTOR (n-1 DOWNTO 0);
 		  ALUFN : IN STD_LOGIC_VECTOR (4 DOWNTO 0);
-		  ALUout: OUT STD_LOGIC_VECTOR(n-1 downto 0);
+		  ALUout: OUT STD_LOGIC_VECTOR(n-1 DOWNTO 0);
 		  Nflag,Cflag,Zflag: OUT STD_LOGIC ); -- Zflag,Cflag,Nflag
 END top;
 ------------- complete the top Architecture code --------------
@@ -45,6 +45,7 @@ ARCHITECTURE struct OF top IS
     SIGNAL AdderSub_x,  AdderSub_y,  AdderSub_res  : STD_LOGIC_VECTOR(n-1 downto 0);
     SIGNAL logic_x,     logic_y,     logic_res     : STD_LOGIC_VECTOR(n-1 downto 0);
     SIGNAL shifter_x,   shifter_y,   shifter_res   : STD_LOGIC_VECTOR(n-1 downto 0);
+    SIGNAL pre_ALUout  : STD_LOGIC_VECTOR(n-1 downto 0);
     SIGNAL AdderSub_cout,   shifter_cout           : STD_LOGIC;
     SIGNAL type_logic, type_shifter, type_addersub: STD_LOGIC;
 
@@ -75,7 +76,7 @@ ARCHITECTURE struct OF top IS
 
 
 	type_addersub   <= 	'1' when ALUFN(4 downto 3)="01" and ( ALUFN(2 downto 0)="000" or ALUFN(2 downto 0)="001" or ALUFN(2 downto 0)="010" ) else '0';
-	type_shifter      <= 	'1' when ALUFN(4 downto 3)="10" and ( ALUFN(2 downto 0)="000" or ALUFN(2 downto 0)="001") else '0';
+	type_shifter    <= 	'1' when ALUFN(4 downto 3)="10" and ( ALUFN(2 downto 0)="000" or ALUFN(2 downto 0)="001") else '0';
 	type_logic      <= 	'1' when ALUFN(4 downto 3)="11" and ( ALUFN(2 downto 0)="000" or ALUFN(2 downto 0)="001" or ALUFN(2 downto 0)="010" or ALUFN(2 downto 0)="011" or ALUFN(2 downto 0)="100" or ALUFN(2 downto 0)="101" ) else '0';
 
 
@@ -91,7 +92,7 @@ ARCHITECTURE struct OF top IS
 
 
 	WITH ALUFN(4 downto 3) SELECT
-        ALUout <=   AdderSub_res when "01",
+    pre_ALUout <=   AdderSub_res when "01",
                     logic_res when "11",
                     shifter_res when "10",
                     UNAFFECTED when others ;
@@ -102,8 +103,9 @@ ARCHITECTURE struct OF top IS
                     '0' when "11",
                     UNAFFECTED when others ;
 
-    Nflag <= ALUFN(n-1);
-    Zflag <= '1' when ALUFN=zero_vector else '0';
+    Nflag <= pre_ALUout(n-1);
+    Zflag <= '1' when pre_ALUout=zero_vector else '0';
+    ALUout <= pre_ALUout;
 
 
 END struct;
