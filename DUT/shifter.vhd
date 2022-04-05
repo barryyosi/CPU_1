@@ -18,11 +18,27 @@ ARCHITECTURE shifterArch OF shifter IS
         signal zeros : std_logic_vector (n-1 DOWNTO 0 ) := (others => '0');
         signal resMat: vectorArr;     -- log(n)Xn mat
         signal carryVec : std_logic_vector (0 to log_n - 1);
+        signal k : integer := 0;
 
 BEGIN
-                resMat(0) <= y(n - 2 downto 0) & zeros( 0) when (x(0)= '1' and ALUFN ="00") else
+        for j in 0 to n-1 loop
+                if x(i) = '1' then
+                        k = k + 2**i;
+                end if;
+        end loop;
 
-                                    zeros(0) & y(n - 1 downto 1)  when (x(0)= '1' and ALUFN = "01") else
+        if k >= n generate
+                res <= zeros;
+        end generate;
+        
+        if k = n generate
+                cout <= y(0);
+        end generate;
+
+
+                resMat(0) <= y(n - 2 downto 0) & zeros( 0) when (x(0)= '1' and ALUFN ="00") else                
+
+                                    zeros(0) & y(n - 1 downto 1)  when (x(0)= '1' and ALUFN = "01") else                
 
                                     y;
 
