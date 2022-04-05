@@ -2,7 +2,7 @@ LIBRARY ieee;
 USE ieee.std_logic_1164.all;
 -------------------------------------
 ENTITY AdderSub IS
-  GENERIC (n : INTEGER := 8);
+  GENERIC (n : INTEGER := 3);
   PORT (     sub: IN STD_LOGIC;
 			 x,y: IN STD_LOGIC_VECTOR (n-1 DOWNTO 0);
             cout: OUT STD_LOGIC;
@@ -48,7 +48,7 @@ LIBRARY ieee;
 USE ieee.std_logic_1164.all;
 --------------------------------------------------------------
 ENTITY AdderSub_switch IS
-	GENERIC (n : INTEGER := 8);
+	GENERIC (n : INTEGER := 3);
 	PORT (x, y : IN STD_LOGIC_VECTOR (n-1 DOWNTO 0);
 	      ALUFN : IN STD_LOGIC_VECTOR (1 DOWNTO 0);
 			res : OUT STD_LOGIC_VECTOR (n-1 DOWNTO 0);
@@ -64,23 +64,22 @@ ARCHITECTURE AdderSub_switch_a OF AdderSub_switch IS
 				cout: 	OUT STD_LOGIC);
 	end component;
 
-	SIGNAL AdderSub_out, AdderSub_x, high_z, zeros : STD_LOGIC_VECTOR(n-1 downto 0);
-	SIGNAL AdderSub_sub, AdderSub_cout  : STD_LOGIC;
+	SIGNAL AdderSub_out, AdderSub_x, zeros : STD_LOGIC_VECTOR(n-1 downto 0);
+	SIGNAL AdderSub_sub, AdderSub_cout : STD_LOGIC;
 	CONSTANT zero_vector : STD_LOGIC_VECTOR(n-1 downto 0) := (others => '0');
 
 BEGIN
 
+	cout <= '0' when y=zero_vector else AdderSub_cout;
+
 	AdderSub_sub <= ALUFN(0) or ALUFN(1);
-	high_z <= (others => 'Z');
 	zeros <= (others => '0');
 
 	WITH ALUFN SELECT
 	AdderSub_x <= 	x when "00",
 					x when "01",
+					zeros when "10",
 					zeros when others;
-
-	res <=	AdderSub_out  when ALUFN /= "11" and x /= high_z else high_z;
-	cout <=	AdderSub_cout when ALUFN /= "11" and x /= high_z else 'Z';
 
 	pm: AdderSub port map(
 		sub => AdderSub_sub,
@@ -89,5 +88,15 @@ BEGIN
 		res => AdderSub_out,
 		cout => AdderSub_cout
 	);
+
+
+
+	WITH ALUFN SELECT
+	res <= 	AdderSub_out when "00",
+			AdderSub_out when "01",
+			AdderSub_out when "10",
+			x when others;
+
+
 
 END AdderSub_switch_a;
