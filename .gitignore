@@ -1,4 +1,5 @@
 /*
+!DOC/Readme.txt
 !DUT/
 DUT/*
 !DUT/*.vhd
@@ -9,7 +10,7 @@ TB/*
 SIM/*
 !SIM/*.do
 
-
+!Readme.txt
 !lab1.pdf
 !lab1.docx
 !.gitignore
