@@ -35,7 +35,7 @@ begin
 
 
         ALUFN <= "00";                   -- left shift testing
-        for i in 0 to 5 loop            -- Iterating over x values from 0 to 10
+        for i in 0 to 5 loop             -- Iterating over x values from 0 to 10
             for i in 0 to 2**5 loop      -- Iterating over y values for each number of shifts
                 wait for 10 ns;
                     y <= y + 1;
@@ -47,7 +47,7 @@ begin
 		y <= (others => '0');
 
         ALUFN <= "01";                   -- right shift testing
-        for i in 0 to 5 loop            -- Iterating over x values from 0 to 10
+        for i in 0 to 5 loop             -- Iterating over x values from 0 to 10
             for i in 0 to 2**5 loop      -- Iterating over y values for each number of shifts
                 wait for 10 ns;
                     y <= y + 1;

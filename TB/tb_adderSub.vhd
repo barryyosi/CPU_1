@@ -4,7 +4,7 @@ use ieee.std_logic_arith.all;
 use ieee.std_logic_unsigned.all;
 
 entity tb is
-	constant m : integer := 8;
+	constant n : integer := 8;
 end tb;
 
 architecture rtb of tb is
@@ -15,11 +15,11 @@ architecture rtb of tb is
 			res : OUT STD_LOGIC_VECTOR (n-1 DOWNTO 0);
 			cout : OUT std_logic);
   end component;
-	SIGNAL x,y,res : STD_LOGIC_VECTOR (m-1 DOWNTO 0);
+	SIGNAL x,y,res : STD_LOGIC_VECTOR (n-1 DOWNTO 0);
 	SIGNAL ALUFN : STD_LOGIC_VECTOR (1 DOWNTO 0);
 	SIGNAL cout : STD_LOGIC;
 begin
-	L0 : AdderSub_switch generic map (m)
+	L0 : AdderSub_switch generic map (n)
 		port map(x,y,ALUFN,res,cout);
 
 	--------- start of stimulus section ------------------
@@ -28,11 +28,12 @@ begin
 
 			x <= (others => '0');
 			y <= (others => '0');
-			ALUFN <= (others => '0');
+			ALUFN <= "00";
 			wait for 1 ns;
-			for i in 1 to 4 loop
-				for i in 1 to 8 loop
-					for i in 1 to 8 loop
+			-- we have here 3 nested loops, each one change differnt signal
+			for i in 1 to 3 loop
+				for i in 1 to 4 loop
+					for i in 1 to 4 loop
 						y <= y+1;
 						wait for 1 ns;
 					end loop;

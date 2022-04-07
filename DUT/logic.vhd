@@ -1,4 +1,4 @@
-LIBRARY ieee;
+library ieee;
 USE ieee.std_logic_1164.all;
 --------------------------------------
 ENTITY logic IS
@@ -11,6 +11,8 @@ END logic;
 --------------------------------------
 ARCHITECTURE logicUnitArch OF logic IS
 BEGIN
+
+------------- define action based on opcode-ALUFN --------------
 
 	   loop1: for i in 0 to n-1 generate
 	   				WITH ALUFN SELECT

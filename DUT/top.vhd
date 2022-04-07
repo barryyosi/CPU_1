@@ -13,10 +13,11 @@ ENTITY top IS
 		  ALUout: OUT STD_LOGIC_VECTOR(n-1 DOWNTO 0);
 		  Nflag,Cflag,Zflag: OUT STD_LOGIC ); -- Zflag,Cflag,Nflag
 END top;
-------------- complete the top Architecture code --------------
+------------- top Architecture code --------------
 ARCHITECTURE struct OF top IS
 
 
+------------- component declare --------------
     component AdderSub_switch is
         PORT (  x, y : IN STD_LOGIC_VECTOR (n-1 DOWNTO 0);
                 ALUFN : IN STD_LOGIC_VECTOR (1 DOWNTO 0);
@@ -41,18 +42,20 @@ ARCHITECTURE struct OF top IS
     end component;
 
 
-    SIGNAL zeros               : STD_LOGIC_VECTOR(n-1 downto 0);
+------------- signals declare --------------
+    SIGNAL zeros                                   : STD_LOGIC_VECTOR(n-1 downto 0);
     SIGNAL AdderSub_x,  AdderSub_y,  AdderSub_res  : STD_LOGIC_VECTOR(n-1 downto 0);
     SIGNAL logic_x,     logic_y,     logic_res     : STD_LOGIC_VECTOR(n-1 downto 0);
     SIGNAL shifter_x,   shifter_y,   shifter_res   : STD_LOGIC_VECTOR(n-1 downto 0);
-    SIGNAL pre_ALUout  : STD_LOGIC_VECTOR(n-1 downto 0);
+    SIGNAL pre_ALUout                              : STD_LOGIC_VECTOR(n-1 downto 0);
     SIGNAL AdderSub_cout,   shifter_cout           : STD_LOGIC;
-    SIGNAL type_logic, type_shifter, type_addersub: STD_LOGIC;
+    SIGNAL type_logic, type_shifter, type_addersub : STD_LOGIC;
 
     CONSTANT zero_vector : STD_LOGIC_VECTOR(n-1 downto 0) := (others => '0');
 
     BEGIN
 
+------------- wire up sub modules --------------
     AdderSub_switch_pm: AdderSub_switch port map(
         ALUFN => ALUFN(1 downto 0),
         y => AdderSub_y,
@@ -74,7 +77,7 @@ ARCHITECTURE struct OF top IS
         cout => shifter_cout
     );
 
-
+------------- choose sub modules --------------
 	type_addersub   <= 	'1' when ALUFN(4 downto 3)="01" and ( ALUFN(2 downto 0)="000" or ALUFN(2 downto 0)="001" or ALUFN(2 downto 0)="010" ) else '0';
 	type_shifter    <= 	'1' when ALUFN(4 downto 3)="10" and ( ALUFN(2 downto 0)="000" or ALUFN(2 downto 0)="001") else '0';
 	type_logic      <= 	'1' when ALUFN(4 downto 3)="11" and ( ALUFN(2 downto 0)="000" or ALUFN(2 downto 0)="001" or ALUFN(2 downto 0)="010" or ALUFN(2 downto 0)="011" or ALUFN(2 downto 0)="100" or ALUFN(2 downto 0)="101" ) else '0';
@@ -90,7 +93,6 @@ ARCHITECTURE struct OF top IS
 	logic_y <= y         when type_logic='1' else UNAFFECTED;
 
 
-
 	WITH ALUFN(4 downto 3) SELECT
     pre_ALUout <=   AdderSub_res when "01",
                     logic_res when "11",
@@ -103,6 +105,7 @@ ARCHITECTURE struct OF top IS
                     '0' when "11",
                     UNAFFECTED when others ;
 
+------------- wire up flags and output --------------
     Nflag <= pre_ALUout(n-1);
     Zflag <= '1' when pre_ALUout=zero_vector else '0';
     ALUout <= pre_ALUout;
