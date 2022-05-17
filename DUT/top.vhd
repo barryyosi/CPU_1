@@ -18,7 +18,7 @@ ARCHITECTURE struct OF top IS
 
 
 ------------- component declare --------------
-    component AdderSub_switch is
+    component AdderSub_switch is generic (n: integer := 8);
         PORT (  x, y : IN STD_LOGIC_VECTOR (n-1 DOWNTO 0);
                 ALUFN : IN STD_LOGIC_VECTOR (1 DOWNTO 0);
                 res : OUT STD_LOGIC_VECTOR (n-1 DOWNTO 0);
@@ -26,14 +26,14 @@ ARCHITECTURE struct OF top IS
     end component;
 
 
-    component logic is
+    component logic is generic (n: integer := 8);
         PORT (  x, y : IN std_logic_vector (n-1 DOWNTO 0);
                 ALUFN : IN std_logic_vector (2 DOWNTO 0);
                 res : OUT std_logic_vector (n-1 DOWNTO 0)
                 );
     end component;
 
-    component shifter is
+    component shifter is generic (n: integer := 8; k: integer := 3);
         PORT (  x, y : IN std_logic_vector (n-1 DOWNTO 0);
                 ALUFN : IN std_logic_vector(1 downto 0);
                 cout : OUT std_logic;
@@ -56,20 +56,20 @@ ARCHITECTURE struct OF top IS
     BEGIN
 
 ------------- wire up sub modules --------------
-    AdderSub_switch_pm: AdderSub_switch port map(
+    AdderSub_switch_pm: AdderSub_switch generic map (n => n) port map(
         ALUFN => ALUFN(1 downto 0),
         y => AdderSub_y,
         x => AdderSub_x,
         res => AdderSub_res,
         cout => AdderSub_cout
     );
-    logic_pm: logic port map(
+    logic_pm: logic generic map (n => n) port map(
         ALUFN => ALUFN(2 downto 0),
         y => logic_y,
         x => logic_x,
         res => logic_res
     );
-    shifter_pm: shifter port map(
+    shifter_pm: shifter generic map (n => n, k=>k) port map(
         ALUFN => ALUFN(1 downto 0),
         y => shifter_y,
         x => shifter_x,

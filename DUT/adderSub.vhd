@@ -57,7 +57,7 @@ END AdderSub_switch;
 
 --------------------------------------
 ARCHITECTURE AdderSub_switch_a OF AdderSub_switch IS
-	component AdderSub is
+	component AdderSub is GENERIC (n : INTEGER := 8);
 		PORT (  sub: 	IN STD_LOGIC;
 				x,y: 	IN STD_LOGIC_VECTOR (n-1 DOWNTO 0);
 				res: 	OUT STD_LOGIC_VECTOR (n-1 downto 0);
@@ -78,7 +78,7 @@ BEGIN
 					zeros when "10",
 					zeros when others;
 
-	pm: AdderSub port map(
+	pm: AdderSub generic map (n => n) port map(
 		sub => AdderSub_sub,
 		y => AdderSub_y,
 		x => x,
