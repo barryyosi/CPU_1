@@ -43,15 +43,14 @@ ARCHITECTURE struct OF test1 IS
 
 
 ------------- signals declare --------------
-    constant zeros                                   : STD_LOGIC_VECTOR(n-1 downto 0) := (others => '0');
+    constant zero                                  : STD_LOGIC_VECTOR(n-1 downto 0) := (others => '0');
     SIGNAL AdderSub_x,  AdderSub_y,  AdderSub_res  : STD_LOGIC_VECTOR(n-1 downto 0);
     SIGNAL logic_x,     logic_y,     logic_res     : STD_LOGIC_VECTOR(n-1 downto 0);
     SIGNAL shifter_x,   shifter_y,   shifter_res   : STD_LOGIC_VECTOR(n-1 downto 0);
-    SIGNAL pre_ALUout                              : STD_LOGIC_VECTOR(n-1 downto 0);
+    SIGNAL pre_ALUout                              : STD_LOGIC_VECTOR(n-1 downto 0) := (others => '0');
     SIGNAL AdderSub_cout,   shifter_cout           : STD_LOGIC;
     SIGNAL type_logic, type_shifter, type_addersub : STD_LOGIC;
 
-    CONSTANT zero_vector : STD_LOGIC_VECTOR(n-1 downto 0) := (others => '0');
 
     BEGIN
 
@@ -97,17 +96,17 @@ ARCHITECTURE struct OF test1 IS
     pre_ALUout <=   AdderSub_res when "01",
                     logic_res when "11",
                     shifter_res when "10",
-                    pre_ALUout when others ;
+                    UNAFFECTED when others ;
 
 	WITH ALUFN(4 downto 3) SELECT
         Cflag <=    AdderSub_cout when "01",
-                    UNAFFECTED when "10",
+                    shifter_cout when "10",
                     '0' when "11",
                     UNAFFECTED when others ;
 
 ------------- wire up flags and output --------------
     Nflag <= pre_ALUout(n-1);
-    Zflag <= '1' when pre_ALUout=zero_vector else '0';
+    Zflag <= '1' when pre_ALUout=zero else '0';
     ALUout <= pre_ALUout;
 
 

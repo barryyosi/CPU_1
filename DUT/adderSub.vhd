@@ -66,7 +66,7 @@ ARCHITECTURE AdderSub_switch_a OF AdderSub_switch IS
 
 	SIGNAL AdderSub_y : STD_LOGIC_VECTOR(n-1 downto 0);
 	SIGNAL AdderSub_sub : STD_LOGIC;
-	constant zeros : STD_LOGIC_VECTOR(n-1 downto 0) := (others => '0');
+	constant zero : STD_LOGIC_VECTOR(n-1 downto 0) := (others => '0');
 
 BEGIN
 
@@ -75,8 +75,8 @@ BEGIN
 	WITH ALUFN SELECT
 	AdderSub_y <= 	y when "00",
 					y when "01",
-					zeros when "10",
-					zeros when others;
+					zero when "10",
+					zero when others;
 
 	pm: AdderSub generic map (n => n) port map(
 		sub => AdderSub_sub,

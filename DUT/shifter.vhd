@@ -17,15 +17,15 @@ ARCHITECTURE shifterArch OF shifter IS
 ------------- signals declare --------------
 
         type vectorArr is array (0 to k - 1) of std_logic_vector ( n - 1 downto 0);
-        constant zeros : std_logic_vector (n-1 DOWNTO 0 ) := (others => '0');
+        constant zero : std_logic_vector (n-1 DOWNTO 0 ) := (others => '0');
         signal resMat: vectorArr;     -- log(n)Xn matrix
         signal carryVec : std_logic_vector (0 to k - 1);
 
 BEGIN
 
 ------------- init for the first iteration --------------
-        resMat(0) <= y(n - 2 downto 0) & zeros(0) when (x(0)= '1' and ALUFN ="00") else
-                                zeros(0) & y(n - 1 downto 1)  when (x(0)= '1' and ALUFN = "01") else
+        resMat(0) <= y(n - 2 downto 0) & zero(0) when (x(0)= '1' and ALUFN ="00") else
+                                zero(0) & y(n - 1 downto 1)  when (x(0)= '1' and ALUFN = "01") else
                                 y;
 
         carryVec(0) <= y( n - 1 )  when (x(0)= '1' and ALUFN ="00") else
@@ -38,8 +38,8 @@ BEGIN
                                 resMat(i-1)( 2**i - 1) when (x(i)= '1' and ALUFN = "01") else
                                 carryVec(i-1);
 
-                resMat(i) <= resMat(i-1)(n - 2**i - 1 downto 0) & zeros( 2**i - 1 downto 0  ) when (x(i)= '1' and ALUFN ="00") else
-                                        zeros( 2**i - 1 downto 0 ) & resMat(i-1)( n - 1 downto 2**i)  when (x(i)= '1' and ALUFN = "01") else
+                resMat(i) <= resMat(i-1)(n - 2**i - 1 downto 0) & zero( 2**i - 1 downto 0  ) when (x(i)= '1' and ALUFN ="00") else
+                                        zero( 2**i - 1 downto 0 ) & resMat(i-1)( n - 1 downto 2**i)  when (x(i)= '1' and ALUFN = "01") else
                                         resMat(i-1);
 
         end generate;
