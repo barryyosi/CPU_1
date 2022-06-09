@@ -4,7 +4,7 @@ use ieee.std_logic_arith.all;
 use ieee.std_logic_unsigned.all;
 USE work.aux_package.all;
 -------------------------------------
-ENTITY top IS
+ENTITY test1 IS
   GENERIC (n : INTEGER := 8;
 		   k : integer := 3;   -- k=log2(n)
 		   m : integer := 4	); -- m=2^(k-1)
@@ -12,9 +12,9 @@ ENTITY top IS
 		  ALUFN : IN STD_LOGIC_VECTOR (4 DOWNTO 0);
 		  ALUout: OUT STD_LOGIC_VECTOR(n-1 DOWNTO 0);
 		  Nflag,Cflag,Zflag: OUT STD_LOGIC ); -- Zflag,Cflag,Nflag
-END top;
+END test1;
 ------------- top Architecture code --------------
-ARCHITECTURE struct OF top IS
+ARCHITECTURE struct OF test1 IS
 
 
 ------------- component declare --------------
@@ -43,7 +43,7 @@ ARCHITECTURE struct OF top IS
 
 
 ------------- signals declare --------------
-    SIGNAL zeros                                   : STD_LOGIC_VECTOR(n-1 downto 0);
+    constant zeros                                   : STD_LOGIC_VECTOR(n-1 downto 0) := (others => '0');
     SIGNAL AdderSub_x,  AdderSub_y,  AdderSub_res  : STD_LOGIC_VECTOR(n-1 downto 0);
     SIGNAL logic_x,     logic_y,     logic_res     : STD_LOGIC_VECTOR(n-1 downto 0);
     SIGNAL shifter_x,   shifter_y,   shifter_res   : STD_LOGIC_VECTOR(n-1 downto 0);
@@ -97,11 +97,11 @@ ARCHITECTURE struct OF top IS
     pre_ALUout <=   AdderSub_res when "01",
                     logic_res when "11",
                     shifter_res when "10",
-                    UNAFFECTED when others ;
+                    pre_ALUout when others ;
 
 	WITH ALUFN(4 downto 3) SELECT
         Cflag <=    AdderSub_cout when "01",
-                    shifter_cout when "10",
+                    UNAFFECTED when "10",
                     '0' when "11",
                     UNAFFECTED when others ;
 

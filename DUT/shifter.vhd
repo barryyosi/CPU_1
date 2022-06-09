@@ -17,14 +17,14 @@ ARCHITECTURE shifterArch OF shifter IS
 ------------- signals declare --------------
 
         type vectorArr is array (0 to k - 1) of std_logic_vector ( n - 1 downto 0);
-        signal zeros : std_logic_vector (n-1 DOWNTO 0 ) := (others => '0');
+        constant zeros : std_logic_vector (n-1 DOWNTO 0 ) := (others => '0');
         signal resMat: vectorArr;     -- log(n)Xn matrix
         signal carryVec : std_logic_vector (0 to k - 1);
 
 BEGIN
 
 ------------- init for the first iteration --------------
-        resMat(0) <= y(n - 2 downto 0) & zeros( 0) when (x(0)= '1' and ALUFN ="00") else
+        resMat(0) <= y(n - 2 downto 0) & zeros(0) when (x(0)= '1' and ALUFN ="00") else
                                 zeros(0) & y(n - 1 downto 1)  when (x(0)= '1' and ALUFN = "01") else
                                 y;
 

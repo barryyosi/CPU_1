@@ -64,13 +64,13 @@ ARCHITECTURE AdderSub_switch_a OF AdderSub_switch IS
 				cout: 	OUT STD_LOGIC);
 	end component;
 
-	SIGNAL AdderSub_y, zeros : STD_LOGIC_VECTOR(n-1 downto 0);
+	SIGNAL AdderSub_y : STD_LOGIC_VECTOR(n-1 downto 0);
 	SIGNAL AdderSub_sub : STD_LOGIC;
+	constant zeros : STD_LOGIC_VECTOR(n-1 downto 0) := (others => '0');
 
 BEGIN
 
 	AdderSub_sub <= ALUFN(0) or ALUFN(1);
-	zeros <= (others => '0');
 
 	WITH ALUFN SELECT
 	AdderSub_y <= 	y when "00",
