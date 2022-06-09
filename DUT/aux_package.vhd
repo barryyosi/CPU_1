@@ -20,6 +20,11 @@ package aux_package is
 ---------------------------------------------------------
 
 
+component HexDecoder is
+		PORT (  BinaryIn			:IN STD_LOGIC_VECTOR (3 DOWNTO 0); 	-- n/2
+				HexOut			:OUT STD_LOGIC_VECTOR(6 downto 0)
+		);
+end component;
 
 
 
