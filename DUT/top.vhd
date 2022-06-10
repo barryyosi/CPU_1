@@ -4,7 +4,7 @@ use ieee.std_logic_arith.all;
 use ieee.std_logic_unsigned.all;
 USE work.aux_package.all;
 -------------------------------------
-ENTITY test1 IS
+ENTITY top IS
   GENERIC (n : INTEGER := 8;
 		   k : integer := 3;   -- k=log2(n)
 		   m : integer := 4	); -- m=2^(k-1)
@@ -12,9 +12,9 @@ ENTITY test1 IS
 		  ALUFN : IN STD_LOGIC_VECTOR (4 DOWNTO 0);
 		  ALUout: OUT STD_LOGIC_VECTOR(n-1 DOWNTO 0);
 		  Nflag,Cflag,Zflag: OUT STD_LOGIC ); -- Zflag,Cflag,Nflag
-END test1;
+END top;
 ------------- top Architecture code --------------
-ARCHITECTURE struct OF test1 IS
+ARCHITECTURE struct OF top IS
 
 
 ------------- component declare --------------
