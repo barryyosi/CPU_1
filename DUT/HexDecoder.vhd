@@ -5,7 +5,7 @@ use ieee.std_logic_unsigned.all;
 	--------------------------------------------
 ENTITY HexDecoder IS
   PORT (  BinaryIn			:IN STD_LOGIC_VECTOR (3 DOWNTO 0); 	-- n/2
-		  HexOut			:OUT STD_LOGIC_VECTOR(6 downto 0) 
+		    HexOut			:OUT STD_LOGIC_VECTOR(6 downto 0) 
 		);
 END HexDecoder;
 
