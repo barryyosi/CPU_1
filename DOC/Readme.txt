@@ -1,4 +1,4 @@
-lab1 - VHDL 
+lab4 - VHDL
 Barry Yosilevich - 208725218
 Eilon Toledano - 206903445
 
@@ -9,13 +9,13 @@ FA.vhd:
 - performs single bit addaction/substruction/
 - ports functional description:
 	+ xi, yi: single binary bits to perform addaction operation between them
-	+ cin: input carry - which has to be taken in consideration within the addaction/substraction operation  
+	+ cin: input carry - which has to be taken in consideration within the addaction/substraction operation
 	+ cout: the output carry resulted in the calculation
-	+ res: the addaction/ substraction result  
+	+ res: the addaction/ substraction result
 
 
 
-adderSub.vhd: 
+adderSub.vhd:
 - performs substraction or addaction on 2 binary vectors(representing numbers) 	 	using FAs.
 - ports functional description:
  	+ sub: determines whether the modules conducts substraction or addaction ('1' for substruction; '0' addaction)
@@ -30,7 +30,7 @@ logic.vhd:
 	+ ALUFN: binary vector of length 3 - determines the logic operator to perform 	on/ between x and y.
 	+ res: the logic operation result.
 
-shifter.vhd: 
+shifter.vhd:
 - performs right/left logical shifting on input vector y, dec(x) times
 - port functional description:
 	+ y: input binary vector to be shifted (left or right).
@@ -40,10 +40,13 @@ shifter.vhd:
 	+ res: binary vector - the y vector shifted dec(x) times (to the left or right).
 
 top.vhd:
-- a processeing unit description, able to perform logical and arithmetic operations over 2 input vectors.
+- a processing unit description, able to perform logical and arithmetic operations over 2 input vectors.
 - port functional description:
 	+ x,y: input binary vectors to perform logic and arithmetic operations on.
 	+ ALUFN: 5 bit length binary vectors - determines which sub-unit to trigger on the x,y vectors (ALUFN(4:5)) and operation-select for the sub-unit(ALUFN(0:3))
 	+ ALUout: output result binary vector
-	+ Nflag, Cflag, Zflag: Negative, carry & zero flags - '1' when result(ALUOUT) 
+	+ Nflag, Cflag, Zflag: Negative, carry & zero flags - '1' when result(ALUOUT)
 	  corresponds to any of them.
+
+top_fpga.vhd:
+	this unit is meant to create registers that connects the keys, switches and leds to the inner layer - top

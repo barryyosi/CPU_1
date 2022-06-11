@@ -8,6 +8,8 @@ DUT/*
 !TB/
 TB/*
 !TB/tb_*.vhd
+!Quartus/
+!Quartus/*
 !SIM/
 SIM/*
 !SIM/*.do
